@@ -1,0 +1,41 @@
+stages:
+  data_ingestion:
+    cmd: python -m src.data.data_ingestion
+    deps:
+      - src/data/data_ingestion.py
+    params:
+      - data_ingestion.test_size
+    outs:
+      - data/raw
+
+  data_preprocessing:
+    cmd: python -m src.data.data_preprocessing
+    deps:
+      - data/raw
+      - src/data/data_preprocessing.py
+    outs:
+      - data/interim
+
+  train_model:
+    cmd: python -m src.model.train_model
+    deps:
+      - data/interim
+      - src/model/train_model.py
+    outs:
+      - models/model.pkl
+
+  model_evaluation:
+    cmd: python -m src.model.model_evaluation
+    deps:
+      - models/model.pkl
+      - src/model/model_evaluation.py
+    metrics:
+      - reports/metrics.json
+    outs:
+      - reports/experiment_info.json
+
+  model_registration:
+    cmd: python -m src.model.register_model
+    deps:
+      - reports/experiment_info.json
+      - src/model/register_model.py

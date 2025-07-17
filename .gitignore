@@ -87,3 +87,7 @@ target/
 
 # Mypy cache
 .mypy_cache/
+cred.txt
+notebooks/
+data/
+models/

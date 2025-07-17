@@ -1,0 +1,84 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python -m src.data.data_ingestion
+    deps:
+    - path: src/data/data_ingestion.py
+      hash: md5
+      md5: dda6b6cdf1f0c1578343091a3290a38a
+      size: 2839
+    params:
+      params.yaml:
+        data_ingestion.test_size: 0.25
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: f45bf0900617e33e25ad8b87ea39519b.dir
+      size: 535235
+      nfiles: 2
+  data_preprocessing:
+    cmd: python -m src.data.data_preprocessing
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: f45bf0900617e33e25ad8b87ea39519b.dir
+      size: 535235
+      nfiles: 2
+    - path: src/data/data_preprocessing.py
+      hash: md5
+      md5: 063f92d47bd90af5c3e213abe6b89ac4
+      size: 2305
+    outs:
+    - path: data/interim
+      hash: md5
+      md5: 1d8d7f3b2608d923827b2402baa00077.dir
+      size: 143852
+      nfiles: 2
+  train_model:
+    cmd: python -m src.model.train_model
+    deps:
+    - path: data/interim
+      hash: md5
+      md5: 1d8d7f3b2608d923827b2402baa00077.dir
+      size: 143852
+      nfiles: 2
+    - path: src/model/train_model.py
+      hash: md5
+      md5: 25835daf5e05953844beece6f4f17415
+      size: 3286
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: d7e10e85c77c9db4d0d1dc957b2f87c4
+      size: 8138840
+  model_evaluation:
+    cmd: python -m src.model.model_evaluation
+    deps:
+    - path: models/model.pkl
+      hash: md5
+      md5: d7e10e85c77c9db4d0d1dc957b2f87c4
+      size: 8138840
+    - path: src/model/model_evaluation.py
+      hash: md5
+      md5: 86c65ce3bcc7c71609816b2d7cc8e2ad
+      size: 5636
+    outs:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: d1f536f2c353c70fe35ecc8b8ba47b21
+      size: 82
+    - path: reports/metrics.json
+      hash: md5
+      md5: 2397e23ee51c06acf68f2112ef936ad3
+      size: 145
+  model_registration:
+    cmd: python -m src.model.register_model
+    deps:
+    - path: reports/experiment_info.json
+      hash: md5
+      md5: d1f536f2c353c70fe35ecc8b8ba47b21
+      size: 82
+    - path: src/model/register_model.py
+      hash: md5
+      md5: cb98278a338e71a150c4396a10b504f9
+      size: 3097
