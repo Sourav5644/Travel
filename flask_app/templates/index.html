@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Travel Product Prediction</title>
+</head>
+<body>
+    <h1>Travel Product Prediction Form</h1>
+    <form method="POST" action="/predict">
+
+        <!-- Passport Dropdown -->
+        <label>Passport:</label>
+        <select name="Passport" required>
+            <option value="1">Yes (Has Passport)</option>
+            <option value="0">No (No Passport)</option>
+        </select><br><br>
+
+        <!-- Marital Status Dropdown -->
+        <label>Marital Status:</label>
+        <select name="MaritalStatus" required>
+            <option value="Married">Married</option>
+            <option value="Unmarried">Unmarried</option>
+            <option value="Divorced">Divorced</option>
+        </select><br><br>
+
+        <!-- Age Input -->
+        <label>Age:</label>
+        <input type="number" name="Age" required><br><br>
+
+        <!-- Product Pitched Dropdown -->
+        <label>Product Pitched:</label>
+        <select name="ProductPitched" required>
+            <option value="Basic">Basic</option>
+            <option value="Standard">Standard</option>
+            <option value="Deluxe">Deluxe</option>
+            <option value="Super Deluxe">Super Deluxe</option>
+            <option value="King">King</option>
+        </select><br><br>
+
+        <!-- Monthly Income Input -->
+        <label>Monthly Income:</label>
+        <input type="number" name="MonthlyIncome" required><br><br>
+
+        <!-- Number of Followups Input -->
+        <label>Number of Follow-ups:</label>
+        <input type="number" name="NumberOfFollowups" required><br><br>
+
+        <!-- Designation Dropdown -->
+        <label>Designation:</label>
+        <select name="Designation" required>
+            <option value="Executive">Executive</option>
+            <option value="Manager">Manager</option>
+            <option value="Senior Manager">Senior Manager</option>
+            <option value="AVP">AVP</option>
+            <option value="VP">VP</option>
+        </select><br><br>
+
+        <!-- Preferred Property Star Dropdown -->
+        <label>Preferred Property Star (1 to 5):</label>
+        <select name="PreferredPropertyStar" required>
+            <option value="1">1 Star</option>
+            <option value="2">2 Star</option>
+            <option value="3">3 Star</option>
+            <option value="4">4 Star</option>
+            <option value="5">5 Star</option>
+        </select><br><br>
+
+        <button type="submit">Predict</button>
+    </form>
+
+    <!-- Prediction Result -->
+    <h2>{{ result }}</h2>
+</body>
+</html>
