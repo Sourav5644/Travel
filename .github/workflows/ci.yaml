@@ -7,15 +7,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧾 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: 🐍 Set up Python
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.10'
 
-      - name: 📦 Cache pip dependencies
+      - name: Cache pip dependencies
         uses: actions/cache@v3
         with:
           path: ~/.cache/pip
@@ -23,18 +23,21 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: 📥 Install dependencies
+      - name: Install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: ▶️ Run DVC pipeline
+      - name: Install DVC
+        run: |
+          pip install dvc        
+
+      - name: Run DVC pipeline
         env:
           CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}
         run: |
           dvc repro
 
-      - name: 🛠️ Install DVC
-        run: pip install dvc    
+       
 
       # - name: 🧪 Run model unit tests
       #   env:
