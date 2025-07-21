@@ -33,6 +33,9 @@ jobs:
         run: |
           dvc repro
 
+      - name: 🛠️ Install DVC
+        run: pip install dvc    
+
       # - name: 🧪 Run model unit tests
       #   env:
       #     CAPSTONE_TEST: ${{ secrets.CAPSTONE_TEST }}
