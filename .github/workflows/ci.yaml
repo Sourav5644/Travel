@@ -10,7 +10,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: Setup python
         uses: actions/setup-python@v2
         with:
           python-version: '3.10'
@@ -23,11 +23,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      - name: Install dependencies
+      - name: install dependencies
         run: |
           pip install -r requirements.txt
 
-      - name: Install DVC
+      - name: install dvc
         run: |
           pip install dvc        
 
